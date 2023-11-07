@@ -1,0 +1,245 @@
+<style>
+    h1 {
+      text-align: center;
+    }
+    
+    nav {
+      text-align: center;
+    }
+
+    form {
+  text-align: center;
+}
+
+h1 {
+text-align: center;
+}
+h3 {
+text-align: center;
+}
+h4 {
+text-align: center;
+}
+h5{
+  color: red;
+}
+
+/* Applying styles to the navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: forestgreen;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.5;
+  z-index: 1;
+}
+
+/* Styling the content within the navbar */
+.navbar .colours {
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.navbar nav {
+  margin-left: auto;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+/* Adding hover effect to links */
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.rounded-input {
+border: 2px solid #ccc; 
+border-radius: 10px; 
+padding: 10px; 
+}
+
+.colours {
+background: linear-gradient(90deg, #0ead05, #e8c202, #cc7700, #0ead05, #e8c202);
+background-size: 400% 100%;
+animation: animateBg 7s linear infinite;
+}
+@keyframes animateBg {
+0% {
+  background-position: 0% 0%;
+}
+100% {
+  background-position: 100% 0%;
+}
+}
+
+/* Round button style */
+.round-button {
+width: 120px; 
+height: 35px; 
+border-radius: 12px; 
+background-color: #cc7700; 
+color: #fff;
+border: none; 
+cursor: pointer; 
+font-size: 14px; 
+transition: background-color 0.5s;
+} 
+
+/* Green colour on hover */
+.round-button:hover {
+  background-color: forestgreen 
+}
+
+.full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: gainsboro;
+  background-size: 400% 100%;
+}
+
+@keyframes shine {
+      0% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff;
+      }
+      50% {
+        color: #cc7700;
+        text-shadow: 0 0 20px #cc7700;
+      }
+      100% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff;
+      }
+    }
+
+    .shining-text {
+      font-size: 18px;
+      animation: shine 5s infinite;
+    }
+
+</style>
+
+<div class="full-screen">
+
+  <header class="navbar">
+    <div class="colours">
+      <h1>The Government Post.</h1>
+      <nav>
+        <a routerLink="/allposts">Posts</a>
+        <a routerLink="/add">Add</a>
+        <a routerLink="/login" (click)="logoutFunction()">Log Out</a>
+      </nav>
+    </div>
+  </header>
+  
+
+  <div>
+    <br>
+    <router-outlet></router-outlet>
+  </div>
+
+<div> 
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3>Address the Issue.</h3>
+    <h4 class="shining-text">#DiversePeopleUnite</h4>
+    <form #postform="ngForm" (ngSubmit)="onaddpost(postform)">
+    <br>
+    <input type="text" class="rounded-input"
+    name="title" 
+    ngModel
+    placeholder="Post Title"
+    required
+    minlength="2"
+    maxlength="100"
+    pattern="^[a-zA-Z0-9\s_-]+$"
+    #title = "ngModel"
+    />
+    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert">
+        <div *ngIf="title.errors?.['required']">
+            Title is required.
+          </div>
+          <div *ngIf="title.errors?.['minlength']">
+            Title must be at least 2 characters long.
+          </div>
+          <div *ngIf="title.errors?.['maxlength']">
+            Title cannot exceed maximum length.
+          </div>
+    </div>
+    <br>
+    <br>
+
+    <input type="text" class="rounded-input"
+    name="department" 
+    ngModel
+    placeholder="Department"
+    required
+    minlength="2"
+    maxlength="100"
+    pattern="^[a-zA-Z0-9\s_-]+$"
+    #department = "ngModel"
+    />
+    <div *ngIf="department.invalid && (department.dirty || department.touched)" class="alert">
+        <div *ngIf="department.errors?.['required']">
+            Department is required.
+          </div>
+          <div *ngIf="department.errors?.['minlength']">
+            Department must be at least 2 characters long.
+          </div>
+          <div *ngIf="department.errors?.['maxlength']">
+            Department cannot exceed maximum length.
+          </div>
+    </div>
+    <br>
+    <br>
+
+    <input type="text" class="rounded-input"
+    name="body" 
+    ngModel
+    placeholder="Body (Content)"
+    required
+    minlength="3"
+    maxlength="1500"
+    pattern="^[a-zA-Z0-9\s_-]+$"
+    #body = "ngModel"
+    />
+    <div *ngIf="body.invalid && (body.dirty || body.touched)" class="alert">
+        <div *ngIf="body.errors?.['required']">
+            Content is required.
+          </div>
+          <div *ngIf="body.errors?.['minlength']">
+            Content must be at least 3 characters long.
+          </div>
+          <div *ngIf="body.errors?.['maxlength']">
+            This content is too long... Please break it down a little.
+          </div>
+    </div>
+    <br>
+    <br>
+
+     <button type ="submit" class="round-button">Create Post</button>
+     <div *ngIf="title.touched == false || department.touched == false || body.touched == false">
+     <h5>No empty fields allowed.</h5>
+    </div>
+  </form>
+</div>
+</div>

@@ -1,0 +1,210 @@
+<html>
+<head>
+<style>
+      h1 {
+        text-align: center;
+      }
+      
+      nav {
+        text-align: center;
+      }
+
+      form {
+    text-align: center;
+  }
+
+
+h3 {
+  text-align: right;
+  padding-right: 250px;
+}
+
+h4 {
+  text-align: center;
+}
+
+h6 {
+  color:#cc7700;
+}
+
+.text-right{
+  text-align: right;
+  padding-right: 250px;
+  padding-top: 75px;
+}
+
+.rounded-input {
+  border: 2px solid #ccc; 
+  border-radius: 10px; 
+  padding: 10px; 
+}
+
+/*https://www.commontools.org/tool/animated-gradient-background-generator-29*/
+/* Animated gradient effect */
+.colours {
+  background: linear-gradient(90deg, #0ead05, #e8c202, #cc7700, #0ead05, #e8c202);
+  background-size: 400% 100%;
+  animation: animateBg 7s linear infinite;
+}
+@keyframes animateBg {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+/* Applying style to the navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: forestgreen;
+  color: #fff;
+  padding:  0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.5;
+  z-index: 1;
+}
+
+/* Styling the content within the navbar */
+.navbar .colours {
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.navbar nav {
+  margin-left: auto;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+/* Adding hover effect to links */
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.round-button {
+  width: 120px;
+  height: 35px;
+  border-radius: 12px;
+  background-color: #cc7700; /* Background color */
+  color: #fff; /* Text color */
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.5s;
+} 
+
+/* Red color on hover */
+.round-button:hover {
+  background-color: rgb(192, 1, 1) 
+}
+
+.positioned-content{
+  position:absolute; /* Positioning relative to the viewport */
+  margin-left: 275px;
+  top:0;
+  bottom: 0;
+  min-height: 100%;
+  height: auto;
+}
+
+.post-container {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  background-color: #f7f7f7;
+}
+
+.full-screen {
+  position: absolute;
+  top: 90px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-size: 400% 100%;
+  
+}
+
+@keyframes shine {
+      0% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff;
+      }
+      50% {
+        color: #f8d202;
+        text-shadow: 0 0 20px #f8d202;
+      }
+      100% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff;
+      }
+    }
+
+    .shining-text {
+      font-size: 24px;
+      animation: shine 2s infinite;
+    }
+</style>
+
+</head>
+<form>
+<header class="navbar">
+    <div class="colours">
+      <h1>The Government Post.</h1>
+      <nav>
+        <a routerLink="/allposts">Posts</a>
+        <a routerLink="/add">Add</a>
+        <a routerLink="/login" (click)="logoutFunction()">Log Out</a>
+      </nav>
+    </div>
+</header>
+  
+  <div>
+    <br>
+    <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="posts.length < 1">
+    <h4>No Existing Posts.</h4>
+</div>
+
+<h2 class="text-right">Working Towards a Stronger South Africa.</h2>
+<h3 class="shining-text">#FixAnIssue</h3>
+
+<div class="full-screen">
+<div class="positioned-content">
+<br>
+<br>
+<div *ngFor="let post of posts">
+  <div class="post-container"> 
+    <h2>{{ post.title }}</h2>
+    <p>Department of {{ post.department }}</p>
+    <p>{{ post.body }}</p>
+    <h6>Date added: {{ post.dateAdded }}</h6>
+    <button (click)="ondelete(post._id)" class="round-button">Delete</button>
+  </div>
+    <br>
+</div>
+
+</div>
+</div>
+</form>
+</html>

@@ -1,0 +1,24 @@
+//Referencing:
+//The Independent Institute of Education. 2023. APDS7311 Lab Guide.
+
+GET http://localhost:3000 HTTP/1.1
+###
+
+GET https://localhost:3000/api/posts HTTP/1.1
+Authorization: Bearer
+###
+
+DELETE https://localhost:3000/api/posts/6540c66c392ea98106962b57 HTTP/1.1
+Authorization: Bearer
+
+
+POST https://localhost:3000/api/posts HTTP/1.1
+content-type: application/json
+Authorization: Bearer 
+
+{
+    "title": "High School Fees",
+    "department": "Education",
+    "body": "Fees should have a 1% decrease."
+}
+###

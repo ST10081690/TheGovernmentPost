@@ -1,0 +1,143 @@
+<style>
+form {
+    text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+h4 {
+  text-align: center;
+}
+h5{
+  color: red;
+}
+
+.rounded-input {
+  border: 2px solid #ccc; 
+  border-radius: 10px; 
+  padding: 10px; 
+}
+
+.full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #0ead05, #e8c202, #cc7700, #0ead05, #e8c202);
+  background-size: 400% 100%;
+  animation: animateBg 7s linear infinite;
+}
+@keyframes animateBg {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.round-button {
+  width: 120px;
+  height: 35px; 
+  border-radius: 12px;
+  background-color: forestgreen; /* Background color */
+  color: #fff; /* Text color */
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  background: linear-gradient(90deg, forestgreen, #cc7700 );
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background-position 0.5s;
+}
+
+/* Adding the gliding light effect on hover */
+.round-button:hover {
+  background-position: 0;
+}
+
+</style>
+
+<div class="full-screen">
+  
+  <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Welcome to the Government Post.</h1>
+    <h4>Please Sign Up to Get Started.</h4>
+  </div>
+<form (submit)="onsignup(signupform)" #signupform="ngForm">
+    <input type="text" class="rounded-input"
+    ngModel name="enteredusername"
+    placeholder="Username"
+    required
+    minlength="3"
+    maxlength="50"
+    pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+    #enteredusername = "ngModel"/>
+    <div *ngIf="enteredusername.invalid && (enteredusername.dirty || enteredusername.touched)" class="alert">
+        <div *ngIf="enteredusername.errors?.['required']">
+            Username is required.
+          </div>
+          <div *ngIf="enteredusername.errors?.['minlength']">
+            Username must be at least 3 characters long.
+          </div>
+          <div *ngIf="enteredusername.errors?.['maxlength']">
+            Username cannot exceed 50 characters.
+          </div>
+    </div>
+    <br>
+    <br>
+    <input type="text" class="rounded-input"
+    ngModel name="enteredname"
+    placeholder="Name"
+    required
+    minlength="2"
+    maxlength="100"
+    pattern="^[a-zA-Z0-9\s_-]+$"
+    #enteredname = "ngModel"/>
+    <div *ngIf="enteredname.invalid && (enteredname.dirty || enteredname.touched)" class="alert">
+        <div *ngIf="enteredname.errors?.['required']">
+            Your name is required.
+          </div>
+          <div *ngIf="enteredname.errors?.['minlength']">
+            Your name must be at least 2 characters long.
+          </div>
+          <div *ngIf="enteredname.errors?.['maxlength']">
+            Name cannot exceed 100 characters.
+          </div>
+    </div>
+    <br>
+    <br>
+    <input type="password" class="rounded-input"
+    name="enteredpassword"
+    ngModel 
+    placeholder="Password"
+    required
+    minlength="8"
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+    #enteredpassword = "ngModel"/>
+    <div *ngIf="enteredpassword.invalid && (enteredpassword.dirty || enteredpassword.touched)" class="alert">
+        <div *ngIf="enteredpassword.errors?.['required']">
+            Password is required.
+          </div>
+          <div *ngIf="enteredpassword.errors?.['minlength']">
+            Password must be at least 8 characters long.
+          </div>
+    </div>
+    <br>
+    <br>
+        <button type = "submit" class="round-button" >Create Account</button>
+        <div *ngIf="enteredpassword.touched == false || enteredusername.touched == false || enteredname.touched == false">
+          <h5>No empty fields allowed.</h5>
+        </div>
+        <br>
+        <label>Have an acoount already?</label>
+        <br>
+        <a href="/login">Log In</a> 
+</form>
+</div>
